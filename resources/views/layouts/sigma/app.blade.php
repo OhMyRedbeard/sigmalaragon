@@ -104,6 +104,28 @@
     </div>
 
     </div>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hash router: show one section, highlight its nav link, close the mobile menu.
+        const views = document.querySelectorAll('[data-view]');
+        const links = document.querySelectorAll('#mainNav .nav-link');
+        function route() {
+            const id = (location.hash || '#dashboard').slice(1);
+            views.forEach(v => v.classList.toggle('d-none', v.id !== id));
+            links.forEach(a => {
+                const on = a.getAttribute('href') === '#' + id;
+                a.classList.toggle('bg-warning', on);
+                a.classList.toggle('text-white', on);
+                a.setAttribute('aria-current', on ? 'page' : 'false');
+            });
+            bootstrap.Offcanvas.getInstance('#sidebar')?.hide();
+            document.querySelector('main').scrollTo({ top: 0 });
+        }
+        addEventListener('hashchange', route); route();
+        const tick = () => document.getElementById('zulu').textContent = new Date().toISOString().slice(11, 16) + 'Z';
+        tick(); setInterval(tick, 30000);
+        document.getElementById('yr').textContent = new Date().getFullYear();
+    </script>
 </body>
 
 </html>
