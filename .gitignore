@@ -1,47 +1,25 @@
-
-## Updated ```unset .gitignore ``` Configuration
-
-```text
 # 1. Ignore everything at the root level
 /*
 
-# 2. Allow Git to look inside the top-level parent directories
+# 2. Open the paths down to your target folders
 !/resources/
-!/public/
-
-# 3. Ignore everything inside those parent directories by default
 /resources/*
-/public/*
-
-# 4. Allow Git to look inside the next level of subdirectories
 !/resources/views/
-!/public/assets/
-
-# 5. Ignore everything inside those subdirectories by default
 /resources/views/*
-/public/assets/*
-
-# 6. Allow Git to look inside the layout folder
 !/resources/views/layouts/
-
-# 7. Ignore everything inside layouts by default
 /resources/views/layouts/*
 
-# 8. Explicitly whitelist and track your target 'sigma' folders
+!/public/
+/public/*
+!/public/assets/
+/public/assets/*
+
+# 3. Whitelist the folders AND all of their nested contents
 !/resources/views/layouts/sigma/
+!/resources/views/layouts/sigma/**
+
 !/public/assets/sigma/
+!/public/assets/sigma/**
 
-# 9. Ensure your .gitignore file itself stays tracked
+# 4. Keep the .gitignore file tracked
 !.gitignore
-```
-
-## Check Your Setup
-Run this terminal command in your project root to confirm Git sees the correct folders:
-
-```bash
-git status
-```
-
-<FollowUp>
-Are you seeing any **tracked files from the ignored folders** showing up when you run that status check?
-</FollowUp>
