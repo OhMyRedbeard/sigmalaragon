@@ -104,6 +104,50 @@
     </div>
 
     </div>
+    {{-- External Redirects Modal --}}
+    @include('external_redirect_modal')
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.complete.min.js"></script>
+
+    <script>
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+    {{-- Start of the required tags block. Don't remove these or things will break!! --}}
+    <script src="{{ public_mix('/assets/global/js/vendor.js') }}"></script>
+    <script src="{{ public_mix('/assets/frontend/js/vendor.js') }}"></script>
+    <script src="{{ public_mix('/assets/frontend/js/app.js') }}"></script>
+    @yield('scripts')
+
+    {{-- This is the color theme switcher --}}
+    @include('scripts.bs_theme')
+
+    {{--
+    It's probably safe to keep this to ensure you're in compliance
+    with the EU Cookie Law https://privacypolicies.com/blog/eu-cookie-law
+    --}}
+    <script>
+        window.addEventListener("load", function () {
+            window.cookieconsent.initialise({
+                palette: {
+                    popup: {
+                        background: "#edeff5",
+                        text: "#838391"
+                    },
+                    button: {
+                        "background": "#067ec1"
+                    }
+                },
+                position: "top",
+            })
+        });
+    </script>
+    {{-- End the required tags block --}}
     <script src="./js/bootstrap.bundle.min.js"></script>
     <script>
         // Hash router: show one section, highlight its nav link, close the mobile menu.
