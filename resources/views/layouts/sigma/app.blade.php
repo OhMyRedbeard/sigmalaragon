@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -12,7 +13,7 @@
     <meta name="api-key" content="{!! Auth::check() ? Auth::user()->api_key : '' !!}">
     <meta name="csrf-token" content="{!! csrf_token() !!}">
     {{-- End the required lines block --}}
-    <link rel="stylesheet" href="{{ public_asset('/assets/sigma/css/sigma.css') }}">
+    <link rel="stylesheet" href="{{ public_asset('assets/sigma/css/sigma.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -60,7 +61,7 @@
 
         @endif
         <div class="flex-grow-1 d-flex flex-column h-100 overflow-hidden">
-            @if(Auth::check()))
+            @if(Auth::check())
                 <header class="bg-dark d-flex align-items-center gap-3 px-3 py-2 flex-shrink-0" data-bs-theme="dark">
                     <button class="btn btn-outline-secondary border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Open menu"><i class="bi bi-list fs-4"></i></button>
                     <form class="d-none d-sm-block flex-grow-1" style="max-width:26rem" role="search">
@@ -125,7 +126,7 @@
     @yield('scripts')
 
     {{-- This is the color theme switcher --}}
-    @include('scripts.bs_theme')
+    {{-- @include('scripts.bs_theme')
 
     {{--
     It's probably safe to keep this to ensure you're in compliance
@@ -148,7 +149,7 @@
         });
     </script>
     {{-- End the required tags block --}}
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="{{ public_asset("assets/sigma/js/bootstrap.bundle.min.js") }}"></script>
     <script>
         // Hash router: show one section, highlight its nav link, close the mobile menu.
         const views = document.querySelectorAll('[data-view]');
