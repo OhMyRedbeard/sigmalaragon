@@ -57,49 +57,49 @@
                     </div>
                 </div>
             </aside>
-        @else
-            NOT LOGGED IN
+
         @endif
         <div class="flex-grow-1 d-flex flex-column h-100 overflow-hidden">
+            @if(Auth::check()))
+                <header class="bg-dark d-flex align-items-center gap-3 px-3 py-2 flex-shrink-0" data-bs-theme="dark">
+                    <button class="btn btn-outline-secondary border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Open menu"><i class="bi bi-list fs-4"></i></button>
+                    <form class="d-none d-sm-block flex-grow-1" style="max-width:26rem" role="search">
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-white bg-opacity-10 border-0 text-secondary"><i class="bi bi-search"></i></span>
+                            <input type="search" class="form-control bg-white bg-opacity-10 border-0 text-white" placeholder="Search airports, routes, pilots" aria-label="Search">
+                        </div>
+                    </form>
+                    <div class="ms-auto d-flex align-items-center gap-2">
+                        <span class="d-none d-md-inline font-monospace small text-secondary me-2" id="zulu">--:--Z</span>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications"><i class="bi bi-bell"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="min-width:16rem">
+                                <li class="dropdown-item-text small text-secondary">Notifications</li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-secondary border-0 d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="rounded-circle bg-warning text-white d-inline-flex align-items-center justify-content-center small" style="width:2rem;height:2rem"><i class="bi bi-person-fill"></i></span>
+                                <span class="d-none d-md-inline small text-start lh-sm">Pilot name<br><span class="font-monospace text-secondary">Pilot ID</span></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li><a class="dropdown-item" href="#profile"><i class="bi bi-person me-2"></i>Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Sign
+                                        out</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
 
-            <header class="bg-dark d-flex align-items-center gap-3 px-3 py-2 flex-shrink-0" data-bs-theme="dark">
-                <button class="btn btn-outline-secondary border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Open menu"><i class="bi bi-list fs-4"></i></button>
-                <form class="d-none d-sm-block flex-grow-1" style="max-width:26rem" role="search">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text bg-white bg-opacity-10 border-0 text-secondary"><i class="bi bi-search"></i></span>
-                        <input type="search" class="form-control bg-white bg-opacity-10 border-0 text-white" placeholder="Search airports, routes, pilots" aria-label="Search">
-                    </div>
-                </form>
-                <div class="ms-auto d-flex align-items-center gap-2">
-                    <span class="d-none d-md-inline font-monospace small text-secondary me-2" id="zulu">--:--Z</span>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications"><i class="bi bi-bell"></i></button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="min-width:16rem">
-                            <li class="dropdown-item-text small text-secondary">Notifications</li>
-                        </ul>
-                    </div>
-                    <div class="dropdown">
-                        <button class="btn btn-outline-secondary border-0 d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="rounded-circle bg-warning text-white d-inline-flex align-items-center justify-content-center small" style="width:2rem;height:2rem"><i class="bi bi-person-fill"></i></span>
-                            <span class="d-none d-md-inline small text-start lh-sm">Pilot name<br><span class="font-monospace text-secondary">Pilot ID</span></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li><a class="dropdown-item" href="#profile"><i class="bi bi-person me-2"></i>Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item text-danger" href="/logout"><i class="bi bi-box-arrow-right me-2"></i>Sign
-                                    out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </header>
-
-            <main class="flex-grow-1 overflow-auto p-3 p-lg-4">
-                <footer class="small text-secondary pt-4">Sigma Virtual Airlines is a virtual airline operating for flight
-                    simulation purposes only and is not affiliated with any real-world airline, alliance, or aircraft
-                    manufacturer. No actual flights take place. &copy; <span id="yr"></span></footer>
-            </main>
+                <main class="flex-grow-1 overflow-auto p-3 p-lg-4">
+                    <footer class="small text-secondary pt-4">Sigma Virtual Airlines is a virtual airline operating for flight
+                        simulation purposes only and is not affiliated with any real-world airline, alliance, or aircraft
+                        manufacturer. No actual flights take place. &copy; <span id="yr"></span></footer>
+                </main>
+            @endif
         </div>
     </div>
 
