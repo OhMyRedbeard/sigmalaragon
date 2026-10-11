@@ -109,7 +109,6 @@
     {{-- External Redirects Modal --}}
     @include('external_redirect_modal')
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.complete.min.js"></script>
@@ -149,6 +148,7 @@
         });
     </script>
     {{-- End the required tags block --}}
+    <script src="{{ public_asset("assets/sigma/js/popper.min.js")}}"></script>
     <script src="{{ public_asset("assets/sigma/js/bootstrap.bundle.min.js") }}"></script>
     <script>
         // Hash router: show one section, highlight its nav link, close the mobile menu.
