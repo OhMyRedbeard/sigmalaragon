@@ -81,7 +81,7 @@
                         <div class="dropdown">
                             <button class="btn btn-outline-secondary border-0 d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="rounded-circle bg-warning text-white d-inline-flex align-items-center justify-content-center small" style="width:2rem;height:2rem"><i class="bi bi-person-fill"></i></span>
-                                <span class="d-none d-md-inline small text-start lh-sm">Pilot name<br><span class="font-monospace text-secondary">Pilot ID</span></span>
+                                <span class="d-none d-md-inline small text-start lh-sm">{{ Auth::user()->name }}<br><span class="font-monospace text-secondary">DWA{{ Auth::user()->id }}</span></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                                 <li><a class="dropdown-item" href="#profile"><i class="bi bi-person me-2"></i>Profile</a></li>
@@ -111,8 +111,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+
     <script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.1/dist/js/tom-select.complete.min.js"></script>
 
     <script>

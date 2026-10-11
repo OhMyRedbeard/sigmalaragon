@@ -7,7 +7,7 @@
         <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
             <div>
                 <h1 class="h3 fw-bold mb-1">Dashboard</h1>
-                <p class="text-secondary mb-0">Welcome message</p>
+                <p class="text-secondary mb-0">Good day, {{ explode(' ', Auth::user()->name)[0] }}. Ready for departure?
             </div>
             <a href="#flightops" class="btn btn-warning ms-lg-auto"><i class="bi bi-plus-lg me-2"></i>Create a
                 flight</a>
