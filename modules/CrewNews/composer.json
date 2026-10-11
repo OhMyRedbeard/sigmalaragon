@@ -1,0 +1,11 @@
+{
+    "name": "modules/crewnews",
+    "description": "News page for phpVMS 7",
+    "type": "phpvms-module",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Modules\\CrewNews\\": ""
+        }
+    }
+}

@@ -21,7 +21,7 @@
                         <div class="lh-sm">
                             <div class="fs-4 fw-bold font-monospace">
                                 @php 
-                                    $totalMinutes = DB::table('PIREPs')
+                                                                                                                                                                                    $totalMinutes = DB::table('PIREPs')
                                         ->where('user_id', 2)
                                         ->sum('flight_time');
 
@@ -133,27 +133,17 @@
                         <p class="text-secondary small mb-0">No active bid</p>
                     </div>
                 </div>
-                <div class="card border-0 shadow-sm bg-white">
-                    <div class="card-body">
-                        <h2 class="h6 fw-semibold mb-3">Announcements</h2>
-                        <div class="table-responsive">
-                            <table class="table table-striped align-middle">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Oct 12, 2026</td>
-                                        <td>Test Title</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="card border-0 shadow-sm bg-white">
+                <div class="card-body">
+                    <h2 class="h6 fw-semibold mb-3">Announcements</h2>
+<div class="accordion" id="newsAccordion">
+    {!!  Widget::latestNews(['count' => 5]) !!}
+</div>
                 </div>
             </div>
         </div>

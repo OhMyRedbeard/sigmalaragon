@@ -1,25 +1,21 @@
-# 1. Ignore everything at the root level
+# Ignore everything at the root, then re-open only what we want
 /*
+!/.gitignore
 
-# 2. Open the paths down to your target folders
 !/resources/
 /resources/*
 !/resources/views/
 /resources/views/*
 !/resources/views/layouts/
 /resources/views/layouts/*
+!/resources/views/layouts/sigma/
 
 !/public/
 /public/*
 !/public/assets/
 /public/assets/*
-
-# 3. Whitelist the folders AND all of their nested contents
-!/resources/views/layouts/sigma/
-!/resources/views/layouts/sigma/**
-
 !/public/assets/sigma/
-!/public/assets/sigma/**
 
-# 4. Keep the .gitignore file tracked
-!.gitignore
+!/modules/
+/modules/*
+!/modules/CrewNews/

@@ -1,0 +1,14 @@
+{
+    "name": "CrewNews",
+    "alias": "crewnews",
+    "description": "Public news page that lists and displays the news posted from the phpVMS admin.",
+    "keywords": ["news"],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\CrewNews\\Providers\\CrewNewsServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
