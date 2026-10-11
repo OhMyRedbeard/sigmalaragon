@@ -27,7 +27,6 @@
 
 <body class="vh-100 overflow-hidden">
     <div class="d-flex h-100">
-        @if(Auth::check())
             <aside id="sidebar" class="offcanvas-lg offcanvas-start flex-shrink-0 border-0" tabindex="-1" aria-labelledby="sidebarLabel" style="--bs-offcanvas-width:16rem">
                 <div class="bg-dark d-flex flex-column w-100 h-100" data-bs-theme="dark">
                     <div class="d-flex align-items-center gap-2 px-3 py-3 border-bottom border-secondary-subtle">
@@ -59,9 +58,7 @@
                 </div>
             </aside>
 
-        @endif
         <div class="flex-grow-1 d-flex flex-column h-100 overflow-hidden">
-            @if(Auth::check())
                 <header class="bg-dark d-flex align-items-center gap-3 px-3 py-2 flex-shrink-0" data-bs-theme="dark">
                     <button class="btn btn-outline-secondary border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Open menu"><i class="bi bi-list fs-4"></i></button>
                     <form class="d-none d-sm-block flex-grow-1" style="max-width:26rem" role="search">
@@ -94,7 +91,6 @@
                         </div>
                     </div>
                 </header>
-            @endif
             <main class="flex-grow-1 overflow-auto p-3 p-lg-4">
                 @yield('content')
                 <footer class="small text-secondary pt-4">Sigma Virtual Airlines is a virtual airline operating for flight
