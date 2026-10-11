@@ -3,8 +3,6 @@
 namespace Modules\CrewNews\Providers;
 
 use App\Contracts\Modules\ServiceProvider;
-use Illuminate\Support\Facades\Route;
-use Modules\CrewNews\Http\Controllers\NewsController;
 
 class CrewNewsServiceProvider extends ServiceProvider
 {
@@ -16,8 +14,11 @@ class CrewNewsServiceProvider extends ServiceProvider
     {
         $this->moduleSvc = app('App\Services\ModuleService');
 
-        $this->registerRoutes();
-        $this->registerViews();
+        $this->loadRoutesFrom(__DIR__.'/../Routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../Routes/admin.php');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/migrations');
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'crewnews');
+
         $this->registerLinks();
     }
 
@@ -26,30 +27,12 @@ class CrewNewsServiceProvider extends ServiceProvider
         //
     }
 
-    /**
-     * Add the "News" link to the frontend navigation.
-     * Set the last argument to true to show it only to logged-in users.
-     */
     public function registerLinks(): void
     {
+        // Public menu link (last argument: true = logged-in users only).
         $this->moduleSvc->addFrontendLink('News', '/news', '', false);
-    }
 
-    public function registerRoutes(): void
-    {
-        Route::middleware('web')
-            ->prefix('news')
-            ->name('crewnews.')
-            ->group(function () {
-                Route::get('/', [NewsController::class, 'index'])->name('index');
-                Route::get('/{id}', [NewsController::class, 'show'])
-                    ->whereNumber('id')
-                    ->name('show');
-            });
-    }
-
-    public function registerViews(): void
-    {
-        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'crewnews');
+        // Admin sidebar link.
+        $this->moduleSvc->addAdminLink('News', '/admin/crewnews', 'pe-7s-news-paper');
     }
 }

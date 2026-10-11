@@ -1,45 +1,35 @@
 @extends('app')
-@section('title', $article->subject)
+@section('title', $article->title)
 
 @section('content')
   <div class="container-fluid py-3">
-    <div class="row g-4">
-      <div class="col-lg-8">
-        <a href="{{ route('crewnews.index') }}" class="btn btn-sm btn-outline-secondary mb-3">
-          &larr; Back to news
-        </a>
+    <a href="{{ route('crewnews.index') }}" class="btn btn-sm btn-outline-secondary mb-4">&larr; All news</a>
 
-        <article class="card shadow-sm border-0">
-          <div class="card-body">
-            <h1 class="h3 mb-1">{{ $article->subject }}</h1>
-            <p class="small text-body-secondary border-bottom pb-3 mb-3">
-              {{ $article->created_at->format('F j, Y') }}
-              @if($article->user)
-                &middot; {{ $article->user->name }}
-              @endif
-            </p>
+    <article class="mx-auto" style="max-width: 820px;">
+      <p class="text-uppercase small fw-semibold text-primary mb-2">
+        {{ $article->published_at->format('F j, Y') }}
+        @if($article->user)
+          &middot; {{ $article->user->name }}
+        @endif
+      </p>
+      <h1 class="display-5 fw-bold mb-3">{{ $article->title }}</h1>
+      <p class="lead text-body-secondary mb-4">{{ $article->summary }}</p>
 
-            {{-- Body is posted by admins in the phpVMS admin, so it is rendered as HTML. --}}
-            <div>{!! $article->body !!}</div>
-          </div>
-        </article>
+      @if($article->image_url)
+        <img src="{{ $article->image_url }}" alt="" class="img-fluid rounded w-100 mb-4">
+      @endif
+
+      <div class="fs-5">{!! $article->body_html !!}</div>
+    </article>
+
+    @if($more->isNotEmpty())
+      <hr class="my-5">
+      <h2 class="h4 fw-bold mb-4">More news</h2>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+        @foreach($more as $article)
+          <div class="col">@include('crewnews::partials.tile-small', ['article' => $article])</div>
+        @endforeach
       </div>
-
-      <div class="col-lg-4">
-        <div class="card shadow-sm border-0">
-          <div class="card-header bg-transparent fw-semibold">Latest news</div>
-          <div class="list-group list-group-flush">
-            @forelse($others as $item)
-              <a href="{{ route('crewnews.show', $item->id) }}" class="list-group-item list-group-item-action">
-                <div>{{ $item->subject }}</div>
-                <small class="text-body-secondary">{{ $item->created_at->format('M j, Y') }}</small>
-              </a>
-            @empty
-              <div class="list-group-item text-body-secondary">No other articles.</div>
-            @endforelse
-          </div>
-        </div>
-      </div>
-    </div>
+    @endif
   </div>
 @endsection

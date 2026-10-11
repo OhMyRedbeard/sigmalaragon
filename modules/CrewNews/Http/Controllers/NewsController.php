@@ -3,7 +3,7 @@
 namespace Modules\CrewNews\Http\Controllers;
 
 use App\Contracts\Controller;
-use App\Models\News;
+use Modules\CrewNews\Models\Article;
 
 class NewsController extends Controller
 {
@@ -11,25 +11,33 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::with('user')
-            ->orderBy('created_at', 'desc')
+        $articles = Article::published()
+            ->orderByDesc('published_at')
             ->paginate(self::PER_PAGE);
 
-        return view('crewnews::index', ['news' => $news]);
+        // Each page: first 5 stories as large tiles, remaining 5 as small items.
+        $items = $articles->getCollection();
+
+        return view('crewnews::index', [
+            'articles' => $articles,
+            'large'    => $items->take(5),
+            'small'    => $items->slice(5),
+        ]);
     }
 
-    public function show(int $id)
+    public function show(string $slug)
     {
-        $article = News::with('user')->findOrFail($id);
+        $article = Article::published()->where('slug', $slug)->firstOrFail();
 
-        $others = News::where('id', '!=', $article->id)
-            ->orderBy('created_at', 'desc')
-            ->limit(5)
+        $more = Article::published()
+            ->where('id', '!=', $article->id)
+            ->orderByDesc('published_at')
+            ->limit(3)
             ->get();
 
         return view('crewnews::show', [
             'article' => $article,
-            'others'  => $others,
+            'more'    => $more,
         ]);
     }
 }
