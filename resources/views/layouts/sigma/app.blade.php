@@ -94,13 +94,14 @@
                         </div>
                     </div>
                 </header>
-
+            @endif
                 <main class="flex-grow-1 overflow-auto p-3 p-lg-4">
+                                @yield('content')
                     <footer class="small text-secondary pt-4">Sigma Virtual Airlines is a virtual airline operating for flight
                         simulation purposes only and is not affiliated with any real-world airline, alliance, or aircraft
                         manufacturer. No actual flights take place. &copy; <span id="yr"></span></footer>
                 </main>
-            @endif
+
         </div>
     </div>
 
