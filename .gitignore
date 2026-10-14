@@ -23,4 +23,4 @@
 !/modules/
 /modules/*
 !/modules/CrewNews/**
-!/modules/FlightOperations/
+!/modules/FlightOperations/**
