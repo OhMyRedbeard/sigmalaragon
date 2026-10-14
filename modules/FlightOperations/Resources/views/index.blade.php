@@ -5,7 +5,7 @@
 @section('content')
     <div class="card mb-3">
         <div class="card-body">
-            <span class="fw-bold">Flight Operations</span> - Book your next flight and view your bids.
+            <span class="fw-bold">Flight Operations</span> - Book your next flight and view your bids
         </div>
     </div>
 
@@ -36,6 +36,39 @@
             cursor: pointer;
         }
         .fo-alert-close:hover, .fo-alert-close:focus { opacity: 1; }
+
+        /* Airport type-ahead dropdown (theme has no .list-group styles) */
+        .airport-picker { position: relative; }
+        .fo-airport-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1050;
+            max-height: 15rem;
+            overflow-y: auto;
+            margin-top: .25rem;
+            /* Opaque: it floats over the next form field. Takes the card's own colour (white), then the page colour. */
+            background: var(--bs-card-bg, var(--bs-body-bg, Canvas));
+            color: var(--bs-body-color, CanvasText);
+            border: 1px solid rgba(128, 128, 128, .4);
+            border-radius: .375rem;
+            box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+        }
+        .fo-airport-results[hidden] { display: none; }
+        .fo-airport-option, .fo-airport-empty {
+            display: block;
+            width: 100%;
+            padding: .5rem .75rem;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            font: inherit;
+            text-align: left;
+        }
+        .fo-airport-option { cursor: pointer; }
+        .fo-airport-option:hover, .fo-airport-option:focus { background: rgba(128, 128, 128, .2); outline: none; }
+        .fo-airport-empty { opacity: .7; }
     </style>
 
     @if(session('success'))
@@ -95,22 +128,21 @@
                         </div>
 
                         {{-- Departure / Arrival airport type-ahead (results come from flightoperations.airports) --}}
-                        @foreach(['dpt' => ['Origin', 'Origin'], 'arr' => ['Destination', 'Destination']] as $prefix => [$labelKey, $placeholderKey])
+                        @foreach(['dpt' => ['Origin', 'selectorigin'], 'arr' => ['Destination', 'selectdestination']] as $prefix => [$labelKey, $placeholderKey])
                             @php($picked = $oldAirports->get((string) old($prefix.'_airport_id')))
-                            <div class="form-group mb-3 position-relative airport-picker" data-prefix="{{ $prefix }}">
+                            <div class="form-group mb-3 airport-picker" data-prefix="{{ $prefix }}">
                                 <label for="{{ $prefix }}_airport_search" class="mb-1">{{ $labelKey }}</label>
                                 <input type="text" id="{{ $prefix }}_airport_search" class="form-control"
                                     autocomplete="off" required
-                                    placeholder="Begin Typing..."
+                                    placeholder="Begin typing to search"
                                     value="{{ $picked ? $picked->icao.' - '.$picked->name : '' }}">
                                 <input type="hidden" name="{{ $prefix }}_airport_id" id="{{ $prefix }}_airport_id"
                                     value="{{ old($prefix.'_airport_id') }}">
-                                <div class="list-group position-absolute w-100 shadow d-none airport-results"
-                                    style="z-index: 1050; max-height: 15rem; overflow-y: auto;"></div>
+                                <div class="fo-airport-results airport-results" hidden></div>
                             </div>
                         @endforeach
 
-                        <button type="submit" class="btn btn-secondary">Create Flight</button>
+                        <button type="submit" class="btn btn-secondary">Create Flight &amp; Add to Bids</button>
                     </form>
                 </div>
             </div>
@@ -119,7 +151,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-body">
-                    <h5>View Bids</h5>
+                    <h5>View your flight bids</h5>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -241,7 +273,7 @@
                 let requestSeq = 0;
 
                 const closeResults = () => {
-                    results.classList.add('d-none');
+                    results.hidden = true;
                     results.replaceChildren();
                 };
 
@@ -257,7 +289,7 @@
 
                     if (items.length === 0) {
                         const empty = document.createElement('div');
-                        empty.className = 'list-group-item text-muted';
+                        empty.className = 'fo-airport-empty';
                         empty.textContent = 'No airports found';
                         results.appendChild(empty);
                     }
@@ -265,13 +297,13 @@
                     items.forEach((item) => {
                         const option = document.createElement('button');
                         option.type = 'button';
-                        option.className = 'list-group-item list-group-item-action';
+                        option.className = 'fo-airport-option';
                         option.textContent = item.label; // textContent: never parse server data as HTML
                         option.addEventListener('click', () => choose(item));
                         results.appendChild(option);
                     });
 
-                    results.classList.remove('d-none');
+                    results.hidden = false;
                 };
 
                 const search = async (term) => {
@@ -311,7 +343,7 @@
                 input.addEventListener('keydown', (event) => {
                     if (event.key === 'Escape') {
                         closeResults();
-                    } else if (event.key === 'ArrowDown' || (event.key === 'Enter' && !results.classList.contains('d-none'))) {
+                    } else if (event.key === 'ArrowDown' || (event.key === 'Enter' && !results.hidden)) {
                         const first = results.querySelector('button');
                         if (first) {
                             event.preventDefault();
