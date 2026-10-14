@@ -21,7 +21,7 @@
                         <div class="lh-sm">
                             <div class="fs-4 fw-bold font-monospace">
                                 @php 
-                                                                                                                                                                                    $totalMinutes = DB::table('PIREPs')
+                                                                                                                                                                                                                                                                                                                                    $totalMinutes = DB::table('PIREPs')
                                         ->where('user_id', 2)
                                         ->sum('flight_time');
 
@@ -133,19 +133,67 @@
                         <p class="text-secondary small mb-0">No active bid</p>
                     </div>
                 </div>
+                <div class="card border-0 shadow-sm bg-white">
+                    <div class="card-body">
+                        <h2 class="h6 fw-semibold mb-3">Announcements</h2>
+                        <div class="list-group list-group-flush">
+                            @php
+                                    $articles = DB::table('crewnews_articles')
+                                    ->orderBy('created_at', 'desc')
+                                    ->take(5)
+                                    ->get();
+                                    @endphp
+                                    @foreach($articles as $article)
+                                        <div class="list-group-item list-group-item-action">
+                                            <div class="row align-items-center g-2">
+                                                <div class="col-12 col-md-2">
+                                                    <time datetime="{{ $article->published_at}}" class="text-body-secondary small">{{ Carbon::parse($article->published_at)->format('d M Y') }}</time>
+                                                </div>
+                                                <div class="col-12 col-md-7 text-truncate"><a href="{{ url('/news/' . $article->slug) }}" class="text-decoration-none">{{ $article->title }}</a></div>
+                                                <div class="col-12 col-md-3 text-md-end">{{  DB::table('users')->where('pilot_id', $article->user_id)->value('name') }}</div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+<!--                             <a href="#" class="list-group-item list-group-item-action">
+                                <div class="row align-items-center g-2">
+                                    <div class="col-12 col-md-2">
+                                        <time datetime="2026-10-11" class="text-body-secondary small">11 Oct 2026</time>
+                                    </div>
+                                    <div class="col-12 col-md-7 text-truncate">
+                                        asdg asdf h ah ae asdfg asd asdgyh asdh asdcgh asdfah
+                                    </div>
+                                    <div class="col-12 col-md-3">Cass</div>
+                                </div>
+                            </a> -->
+                        </div>
+                        {{-- }}
+                        <div class="table-responsive">
+                            <table class="table table-striped align-middle">
+                                <thead class="table-dark">
+                                </thead>
+                                <tbody>
+                                    @php
+                                    $articles = DB::table('crewnews_articles')
+                                    ->orderBy('created_at', 'desc')
+                                    ->take(5)
+                                    ->get();
+                                    @endphp
+                                    @foreach($articles as $article)
+                                    <tr>
+                                        <td>{{ Carbon::parse($article->published_at)->format('d M, Y') }}</td>
+                                        <td><a href="./news/{{ $article->slug }}">{{ $article->title }}</a></td>
+                                    </tr>
+                                    @endforeach
 
-            </div>
-        </div>
-
-        <div class="row g-3">
-            <div class="card border-0 shadow-sm bg-white">
-                <div class="card-body">
-                    <h2 class="h6 fw-semibold mb-3">Announcements</h2>
-<div class="accordion" id="newsAccordion">
-    {!!  Widget::latestNews(['count' => 5]) !!}
-</div>
+                                </tbody>
+                            </table>
+                        </div>
+                        --}}
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </section>
 @endsection

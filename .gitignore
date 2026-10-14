@@ -4,8 +4,12 @@
 
 !/resources/
 /resources/*
+!/modules/
+/modules/*
 !/resources/views/
 /resources/views/*
+!modules/FlightOperations/
+/modules/FlightOperations/*
 !/resources/views/layouts/
 /resources/views/layouts/*
 !/resources/views/layouts/sigma/
@@ -18,4 +22,5 @@
 
 !/modules/
 /modules/*
-!/modules/CrewNews/
+!/modules/CrewNews/**
+!/modules/FlightOperations/
