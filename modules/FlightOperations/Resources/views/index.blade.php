@@ -5,7 +5,7 @@
 @section('content')
     <div class="card mb-3">
         <div class="card-body">
-            <span class="fw-bold">@lang('vingar.flightoperations')</span> - @lang('vingar.booknext')
+            <span class="fw-bold">Flight Operations</span> - Book your next flight and view your bids.
         </div>
     </div>
 
@@ -68,13 +68,13 @@
         <div class="col-lg-3">
             <div class="card">
                 <div class="card-body">
-                    <h5>@lang('vingar.createnew')</h5>
+                    <h5>Create new flight</h5>
                     <form method="POST" action="{{ route('flightoperations.create-flight') }}">
                         @csrf
 
                         {{-- Aircraft Selection --}}
                         <div class="form-group mb-3">
-                            <label for="aircraft_id" class="mb-1">@lang('vingar.aircraft')</label>
+                            <label for="aircraft_id" class="mb-1">Aircraft</label>
                             <select name="aircraft_id" id="aircraft_id" class="form-select" required>
                                 @foreach($aircraft as $ac)
                                     <option value="{{ $ac->id }}" {{ old('aircraft_id') == $ac->id ? 'selected' : '' }}>{{ $ac->name }}</option>
@@ -84,24 +84,24 @@
 
                         {{-- Flight Number with Auto-Generate --}}
                         <div class="form-group mb-3">
-                            <label for="flight_number" class="mb-1">@lang('vingar.flightnumber')</label>
+                            <label for="flight_number" class="mb-1">Flight Number</label>
                             <div class="input-group">
                                 <input type="number" name="flight_number" id="flight_number" class="form-control"
                                     min="{{ $flightNumberMin }}" max="{{ $flightNumberMax }}"
                                     value="{{ old('flight_number') }}" required>
                                 <button type="button" id="generate_flight_number"
-                                    class="btn btn-secondary">@lang('vingar.generate')</button>
+                                    class="btn btn-secondary">Random</button>
                             </div>
                         </div>
 
                         {{-- Departure / Arrival airport type-ahead (results come from flightoperations.airports) --}}
-                        @foreach(['dpt' => ['origin', 'selectorigin'], 'arr' => ['destination', 'selectdestination']] as $prefix => [$labelKey, $placeholderKey])
+                        @foreach(['dpt' => ['Origin', 'Origin'], 'arr' => ['Destination', 'Destination']] as $prefix => [$labelKey, $placeholderKey])
                             @php($picked = $oldAirports->get((string) old($prefix.'_airport_id')))
                             <div class="form-group mb-3 position-relative airport-picker" data-prefix="{{ $prefix }}">
-                                <label for="{{ $prefix }}_airport_search" class="mb-1">@lang('vingar.'.$labelKey)</label>
+                                <label for="{{ $prefix }}_airport_search" class="mb-1">{{ $labelKey }}</label>
                                 <input type="text" id="{{ $prefix }}_airport_search" class="form-control"
                                     autocomplete="off" required
-                                    placeholder="@lang('vingar.'.$placeholderKey)"
+                                    placeholder="Begin Typing..."
                                     value="{{ $picked ? $picked->icao.' - '.$picked->name : '' }}">
                                 <input type="hidden" name="{{ $prefix }}_airport_id" id="{{ $prefix }}_airport_id"
                                     value="{{ old($prefix.'_airport_id') }}">
@@ -110,7 +110,7 @@
                             </div>
                         @endforeach
 
-                        <button type="submit" class="btn btn-secondary">@lang('vingar.createflight')</button>
+                        <button type="submit" class="btn btn-secondary">Create Flight</button>
                     </form>
                 </div>
             </div>
@@ -119,7 +119,7 @@
         <div class="col-lg-9">
             <div class="card">
                 <div class="card-body">
-                    <h5>@lang('vingar.viewbids')</h5>
+                    <h5>View Bids</h5>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -176,7 +176,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6" class="text-center text-muted">You have no bids yet.</td>
+                                    <td colspan="6" class="text-center text-muted">No active bids</td>
                                 </tr>
                             @endforelse
                         </tbody>
