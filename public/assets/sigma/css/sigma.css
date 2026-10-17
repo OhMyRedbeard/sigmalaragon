@@ -12176,3 +12176,47 @@ h6,
 .sidebar-title {
   color: var(--bs-body-bg) !important;
 }/*# sourceMappingURL=sigma.css.map */
+
+#mainNav .nav-icon {
+    --icon-color: #03a2e9;
+    width: 2rem;
+    height: 2rem;
+    flex: 0 0 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--icon-color);
+    background-color: color-mix(in srgb, var(--icon-color) 18%, transparent);
+    border: 1px solid color-mix(in srgb, var(--icon-color) 45%, transparent);
+    font-size: 1rem;
+    transition: background-color .15s, color .15s;
+}
+
+/* alternating colors */
+#mainNav li:nth-child(5n+1) .nav-icon { --icon-color: #03a2e9; } /* accent blue */
+#mainNav li:nth-child(5n+2) .nav-icon { --icon-color: #2ecc9a; } /* green */
+#mainNav li:nth-child(5n+3) .nav-icon { --icon-color: #f5a524; } /* amber */
+#mainNav li:nth-child(5n+4) .nav-icon { --icon-color: #ff6b8a; } /* coral */
+#mainNav li:nth-child(5n+5) .nav-icon { --icon-color: #a78bfa; } /* violet */
+
+/* filled circle on hover / active */
+#mainNav .nav-link:hover .nav-icon,
+#mainNav .nav-link.active .nav-icon {
+    background-color: var(--icon-color);
+    color: #fff;
+}
+
+#mainNav .nav-link {
+    color: rgba(255, 255, 255, .75);
+    transition: background-color .15s, color .15s;
+}
+#mainNav .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .08);
+}
+#mainNav .nav-link.active {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .14);
+    box-shadow: inset 3px 0 0 #03a2e9; /* accent bar on the left edge */
+}

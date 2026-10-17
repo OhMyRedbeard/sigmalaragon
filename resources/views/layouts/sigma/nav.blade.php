@@ -8,16 +8,19 @@
             </div>
             <button type="button" class="btn-close ms-auto d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close menu"></button>
         </div>
-        <nav class="flex-grow-1 overflow-auto px-2 py-3" aria-label="Main">
-            <ul class="nav flex-column gap-1" id="mainNav">
-                <li><a class="nav-link rounded-2 d-flex align-items-center gap-3" href="{{ route('frontend.dashboard.index')}}"><i class="bi bi-grid-1x2"></i>Dashboard</a></li>
-                <li><a class="nav-link rounded-2 d-flex align-items-center gap-3" href="{{ url('/news') }}"><i class="bi bi-newspaper"></i>News</a></li>
-                <li><a class="nav-link rounded-2 d-flex align-items-center gap-3" href="{{ url('/flightoperations')}}"><i class="bi bi-signpost-split"></i>Flight Operations</a></li>
-                <li><a class="nav-link rounded-2 d-flex align-items-center gap-3" href="{{ route('frontend.pireps.index') }}"><i class="bi bi-journal-check"></i>My PIREPs</a></li>
-                {{--<li><a class="nav-link rounded-2 d-flex align-items-center gap-3" href="?page=fleet"><i class="bi bi-airplane-engines"></i>Fleet</a></li> --}}
-                <li><a class="nav-link rounded-2 d-flex align-items-center gap-3" href="{{ route('frontend.profile.index') }}"><i class="bi bi-person-gear"></i>Profile &amp; settings</a></li>
-            </ul>
-        </nav>
+<nav class="flex-grow-1 overflow-auto px-2 py-3" aria-label="Main">
+    <ul class="nav flex-column gap-1" id="mainNav">
+        <li><a class="nav-link rounded-2 d-flex align-items-center gap-3 {{ request()->routeIs('frontend.dashboard.*') ? 'active' : '' }}" @if(request()->routeIs('frontend.dashboard.*')) aria-current="page" @endif href="{{ route('frontend.dashboard.index') }}"><span class="nav-icon"><i class="bi bi-grid-1x2"></i></span>Dashboard</a></li>
+
+        <li><a class="nav-link rounded-2 d-flex align-items-center gap-3 {{ request()->is('news*') ? 'active' : '' }}" @if(request()->is('news*')) aria-current="page" @endif href="{{ url('/news') }}"><span class="nav-icon"><i class="bi bi-newspaper"></i></span>News</a></li>
+
+        <li><a class="nav-link rounded-2 d-flex align-items-center gap-3 {{ request()->is('flightoperations*') ? 'active' : '' }}" @if(request()->is('flightoperations*')) aria-current="page" @endif href="{{ url('/flightoperations') }}"><span class="nav-icon"><i class="bi bi-signpost-split"></i></span>Flight Operations</a></li>
+
+        <li><a class="nav-link rounded-2 d-flex align-items-center gap-3 {{ request()->routeIs('frontend.pireps.*') ? 'active' : '' }}" @if(request()->routeIs('frontend.pireps.*')) aria-current="page" @endif href="{{ route('frontend.pireps.index') }}"><span class="nav-icon"><i class="bi bi-journal-check"></i></span>My PIREPs</a></li>
+
+        <li><a class="nav-link rounded-2 d-flex align-items-center gap-3 {{ request()->routeIs('frontend.profile.*') ? 'active' : '' }}" @if(request()->routeIs('frontend.profile.*')) aria-current="page" @endif href="{{ route('frontend.profile.index') }}"><span class="nav-icon"><i class="bi bi-person-gear"></i></span>Profile &amp; settings</a></li>
+    </ul>
+</nav>
         <div class="p-3 border-top border-secondary-subtle">
             <div class="d-flex align-items-center gap-3 mb-2"><i class="bi bi-broadcast text-warning fs-5"></i>
                 <div class="lh-sm">
