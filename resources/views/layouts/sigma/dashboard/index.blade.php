@@ -22,7 +22,7 @@
                             <div class="fs-4 fw-bold font-monospace">
                                 @php 
                                         $totalMinutes = DB::table('pireps')
-                                        ->where('user_id', 2)
+                                        ->where('user_id', Auth::user()->id)
                                         ->sum('flight_time');
 
                                     $hours = floor($totalMinutes / 60);
@@ -47,7 +47,7 @@
                                 @php
                                     $totalFlights = DB::table('pireps')
                                         ->where('state', '1')
-                                        ->where('user_id', '2')
+                                        ->where('user_id', Auth::user()->id)
                                         ->count(); 
                                 @endphp
                                 {{ $totalFlights }}
@@ -65,7 +65,7 @@
                             <div class="fs-4 fw-bold font-monospace">
                                 @php
                                     $avgLandingRate = DB::table('pireps')
-                                        ->where('user_id', '2')
+                                        ->where('user_id', Auth::user()->id)
                                         ->where('state', '1')
                                         ->avg('landing_rate');
                                     $averageLandingRate = $avgLandingRate = $avgLandingRate !== null ? round($avgLandingRate) : null;
@@ -86,7 +86,7 @@
                             <div class="fs-4 fw-bold font-monospace">
                                 @php
                                     $totalDistance = DB::table('pireps')
-                                        ->where('user_id', '2')
+                                        ->where('user_id', Auth::user()->id)
                                         ->where('state', '1')
                                         ->sum('distance');
 
