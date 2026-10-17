@@ -21,7 +21,7 @@
                         <div class="lh-sm">
                             <div class="fs-4 fw-bold font-monospace">
                                 @php 
-                                                                                                                                                                                                                                                                                                                                                                        $totalMinutes = DB::table('PIREPs')
+                                        $totalMinutes = DB::table('pireps')
                                         ->where('user_id', 2)
                                         ->sum('flight_time');
 
