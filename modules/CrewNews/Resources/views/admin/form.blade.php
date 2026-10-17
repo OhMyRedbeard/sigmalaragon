@@ -49,8 +49,31 @@
 
         <div class="form-group">
           <label for="body">Article</label>
+
+          <div class="btn-toolbar" id="md-toolbar" style="margin-bottom: 6px;">
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn btn-default" data-md="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+              <button type="button" class="btn btn-default" data-md="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+              <button type="button" class="btn btn-default" data-md="strike" title="Strikethrough"><s>S</s></button>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn btn-default" data-md="h2" title="Heading">H2</button>
+              <button type="button" class="btn btn-default" data-md="h3" title="Subheading">H3</button>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn btn-default" data-md="ul" title="Bulleted list">&bull; List</button>
+              <button type="button" class="btn btn-default" data-md="ol" title="Numbered list">1. List</button>
+              <button type="button" class="btn btn-default" data-md="quote" title="Quote">&ldquo; Quote</button>
+            </div>
+            <div class="btn-group btn-group-sm">
+              <button type="button" class="btn btn-default" data-md="link" title="Link (Ctrl+K)">Link</button>
+              <button type="button" class="btn btn-default" data-md="image" title="Image from a URL">Image</button>
+              <button type="button" class="btn btn-default" data-md="hr" title="Horizontal line">&mdash; Line</button>
+            </div>
+          </div>
+
           <textarea id="body" name="body" class="form-control" rows="16" required>{{ old('body', $article->body) }}</textarea>
-          <p class="help-block">Markdown is supported (headings, bold, lists, links, images). Raw HTML is stripped.</p>
+          <p class="help-block">Press Enter for a new line and leave a blank line between paragraphs. Select text, then use the buttons above to format it. Raw HTML is stripped.</p>
         </div>
 
         <div class="row">
@@ -82,4 +105,90 @@
       </div>
     </div>
   </form>
+
+  <script>
+    (function () {
+      var ta = document.getElementById('body');
+      var bar = document.getElementById('md-toolbar');
+      if (!ta || !bar) return;
+
+      // Wrap the selection (or a placeholder) in before/after, or unwrap if already wrapped.
+      function wrap(before, after, placeholder) {
+        var s = ta.selectionStart, e = ta.selectionEnd, v = ta.value;
+        var sel = v.slice(s, e) || placeholder;
+        if (v.slice(s - before.length, s) === before && v.slice(e, e + after.length) === after && s !== e) {
+          ta.setRangeText(sel, s - before.length, e + after.length, 'select');
+        } else {
+          ta.setRangeText(before + sel + after, s, e, 'end');
+          ta.setSelectionRange(s + before.length, s + before.length + sel.length);
+        }
+      }
+
+      // Prefix every selected line (numbered lists count up).
+      function prefixLines(prefixFn) {
+        var v = ta.value, s = ta.selectionStart, e = ta.selectionEnd;
+        var start = v.lastIndexOf('\n', s - 1) + 1;
+        var endIdx = v.indexOf('\n', e);
+        if (endIdx === -1) endIdx = v.length;
+        var lines = v.slice(start, endIdx).split('\n').map(function (l, i) {
+          return prefixFn(i) + l;
+        });
+        ta.setRangeText(lines.join('\n'), start, endIdx, 'select');
+      }
+
+      function heading(level) {
+        var hashes = new Array(level + 1).join('#') + ' ';
+        var v = ta.value, s = ta.selectionStart;
+        var start = v.lastIndexOf('\n', s - 1) + 1;
+        var endIdx = v.indexOf('\n', s); if (endIdx === -1) endIdx = v.length;
+        var line = v.slice(start, endIdx).replace(/^#{1,6}\s*/, '');
+        ta.setRangeText(hashes + line, start, endIdx, 'end');
+      }
+
+      var actions = {
+        bold:   function () { wrap('**', '**', 'bold text'); },
+        italic: function () { wrap('*', '*', 'italic text'); },
+        strike: function () { wrap('~~', '~~', 'text'); },
+        h2:     function () { heading(2); },
+        h3:     function () { heading(3); },
+        ul:     function () { prefixLines(function () { return '- '; }); },
+        ol:     function () { prefixLines(function (i) { return (i + 1) + '. '; }); },
+        quote:  function () { prefixLines(function () { return '> '; }); },
+        link: function () {
+          var url = window.prompt('Link address (URL):', 'https://');
+          if (!url) return;
+          var s = ta.selectionStart, e = ta.selectionEnd;
+          var text = ta.value.slice(s, e) || 'link text';
+          ta.setRangeText('[' + text + '](' + url + ')', s, e, 'end');
+        },
+        image: function () {
+          var url = window.prompt('Image address (URL):', 'https://');
+          if (!url) return;
+          var s = ta.selectionStart, e = ta.selectionEnd;
+          var alt = ta.value.slice(s, e) || 'description';
+          ta.setRangeText('![' + alt + '](' + url + ')', s, e, 'end');
+        },
+        hr: function () {
+          var s = ta.selectionStart;
+          ta.setRangeText('\n\n---\n\n', s, ta.selectionEnd, 'end');
+        }
+      };
+
+      bar.addEventListener('click', function (ev) {
+        var btn = ev.target.closest('[data-md]');
+        if (!btn || !actions[btn.getAttribute('data-md')]) return;
+        ev.preventDefault();
+        actions[btn.getAttribute('data-md')]();
+        ta.focus();
+      });
+
+      ta.addEventListener('keydown', function (ev) {
+        if (!(ev.ctrlKey || ev.metaKey)) return;
+        var k = ev.key.toLowerCase();
+        if (k === 'b') { ev.preventDefault(); actions.bold(); }
+        else if (k === 'i') { ev.preventDefault(); actions.italic(); }
+        else if (k === 'k') { ev.preventDefault(); actions.link(); }
+      });
+    })();
+  </script>
 @endsection

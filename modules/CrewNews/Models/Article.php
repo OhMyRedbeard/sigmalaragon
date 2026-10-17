@@ -47,9 +47,16 @@ class Article extends Model
     /** The body is written in Markdown; raw HTML is stripped. */
     public function getBodyHtmlAttribute(): string
     {
-        $html = Str::markdown($this->body, [
+        $body = str_replace(["\r\n", "\r"], "\n", $this->body);
+
+        // Be forgiving: "-Item" (no space after the dash) becomes a proper "- Item" bullet.
+        $body = preg_replace('/^-(?=[A-Za-z])/m', '- ', $body);
+
+        $html = Str::markdown($body, [
             'html_input'         => 'strip',
             'allow_unsafe_links' => false,
+            // Pressing Enter once = a line break (Markdown normally joins those lines).
+            'renderer'           => ['soft_break' => "<br>\n"],
         ]);
 
         return str_replace(
