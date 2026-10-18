@@ -1,5 +1,7 @@
 # Ignore everything at the root, then re-open only what we want
 /*
+
+!/.github
 !/.gitignore
 
 !/resources/
