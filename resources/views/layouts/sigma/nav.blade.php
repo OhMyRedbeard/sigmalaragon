@@ -1,7 +1,7 @@
 <aside id="sidebar" class="offcanvas-lg offcanvas-start flex-shrink-0 border-0" tabindex="-1" aria-labelledby="sidebarLabel" style="--bs-offcanvas-width:16rem">
     <div class="bg-dark d-flex flex-column w-100 h-100" data-bs-theme="dark">
         <div class="d-flex align-items-center gap-2 px-3 py-3">
-            <img src="{{ public_asset('assets/sigma/img/sigma-site-header.png') }}" alt="" class="" style="height: 36px;">
+            <a href="{{ route('frontend.home') }}"><img src="{{ public_asset('assets/sigma/img/sigma-site-header.png') }}" alt="" class="" style="height: 36px;"></a>
 
             <button type="button" class="btn-close ms-auto d-lg-none" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Close menu"></button>
         </div>
