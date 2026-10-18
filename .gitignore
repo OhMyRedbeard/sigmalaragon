@@ -1,24 +1,14 @@
 # Ignore everything at the root, then re-open only what we want
 /*
 
-!/.github
-!/.gitignore
 
-!/resources/
-/resources/*
-!/resources/views/
-/resources/views/*
-!/resources/views/layouts/
-/resources/views/layouts/*
-!/resources/views/layouts/sigma/
 
-!/modules/
-/modules/*
-!/modules/CrewNews/
-!/modules/FlightOperations/
 
-!/public/
-/public/*
-!/public/assets/
-/public/assets/*
-!/public/assets/sigma/
+!/resources/views/layouts/sigma/**
+
+!/modules/CrewNews/**
+!/modules/FlightOperations/**
+
+
+!/public/assets/sigma/**
+
