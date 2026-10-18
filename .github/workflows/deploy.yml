@@ -9,6 +9,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check secrets
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          echo "server length: ${#S}"
+          echo "username length: ${#U}"
+          echo "password length: ${#P}"
+
       - name: Upload changed files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -23,4 +33,5 @@ jobs:
             **/.git*/**
             **/node_modules/**
             .vscode/**
+            .github/**
             README.md
