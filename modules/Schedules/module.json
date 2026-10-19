@@ -1,0 +1,14 @@
+{
+    "name": "Schedules",
+    "alias": "schedules",
+    "description": "Lists only unique departure/arrival airport pairings from the flights table.",
+    "keywords": ["flights", "routes", "pairs"],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Schedules\\Providers\\SchedulesServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
