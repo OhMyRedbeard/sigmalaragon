@@ -38,6 +38,7 @@
                     </div>
                 </div>
             </div>
+            <!-- TRIGGER -->
             <div class="col">
                 <div class="card border-0 shadow-sm bg-white h-100">
                     <div class="card-body d-flex align-items-center gap-3">
