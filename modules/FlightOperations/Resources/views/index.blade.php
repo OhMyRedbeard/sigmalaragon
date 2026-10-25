@@ -166,7 +166,7 @@ Translucent colours so it reads on both light and dark themes. --}}
                     @php($picked = $oldAirports->get((string) old($prefix . '_airport_id')))
                     <div class="form-group mb-3 airport-picker" data-prefix="{{ $prefix }}">
                         <label for="{{ $prefix }}_airport_search" class="mb-1">{{ $labelKey }}</label>
-                        <input type="text" id="{{ $prefix }}_airport_search" class="form-control" autocomplete="off" required placeholder="Begin typing to search" value="{{ $picked ? $picked->icao . ' - ' . $picked->name : '' }}">
+                        <input type="text" id="{{ $prefix }}_airport_search" class="form-control" autocomplete="off" required placeholder="Begin typing to search" value="KJFK">
                         <input type="hidden" name="{{ $prefix }}_airport_id" id="{{ $prefix }}_airport_id" value="{{ old($prefix . '_airport_id') }}">
                         <div class="fo-airport-results airport-results" hidden></div>
                     </div>
