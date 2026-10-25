@@ -46,7 +46,7 @@
                             <div class="fs-4 fw-bold font-monospace">
                                 @php
                                     $totalFlights = DB::table('pireps')
-                                        ->where('state', '1')
+                                        ->where('state', '2')
                                         ->where('user_id', Auth::user()->id)
                                         ->count(); 
                                 @endphp
@@ -66,7 +66,7 @@
                                 @php
                                     $avgLandingRate = DB::table('pireps')
                                         ->where('user_id', Auth::user()->id)
-                                        ->where('state', '1')
+                                        ->where('state', '2')
                                         ->avg('landing_rate');
                                     $averageLandingRate = $avgLandingRate = $avgLandingRate !== null ? round($avgLandingRate) : null;
                                 @endphp
@@ -87,7 +87,7 @@
                                 @php
                                     $totalDistance = DB::table('pireps')
                                         ->where('user_id', Auth::user()->id)
-                                        ->where('state', '1')
+                                        ->where('state', '2')
                                         ->sum('distance');
 
                                     $formattedDistance = $totalDistance !== null ? number_format($totalDistance) : null;
