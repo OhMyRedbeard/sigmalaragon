@@ -14,7 +14,6 @@
 /modules/*
 !/modules/CrewNews/
 !/modules/FlightOperations/
-!/modules/Schedules/
 
 !/public/
 /public/*
