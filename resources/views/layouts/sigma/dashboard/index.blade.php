@@ -9,7 +9,7 @@
                 <h1 class="h3 fw-bold mb-1">Dashboard</h1>
                 <p class="text-secondary mb-0">Good day, {{ explode(' ', Auth::user()->name)[0] }}. Ready for departure?
             </div>
-            <a href="#flightops" class="btn btn-warning ms-lg-auto"><i class="bi bi-plus-lg me-2"></i>Create a
+            <a href="{{ url('/flightoperations') }}" class="btn btn-warning ms-lg-auto"><i class="bi bi-plus-lg me-2"></i>Create a
                 flight</a>
         </div>
         <div class="row row-cols-2 row-cols-xl-4 g-3 mb-3">

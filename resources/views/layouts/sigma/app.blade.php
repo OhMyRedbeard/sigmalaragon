@@ -52,7 +52,7 @@
                                 <span class="d-none d-md-inline small text-start lh-sm">{{ Auth::user()->name }}<br><span class="font-monospace text-secondary">DWA{{ Auth::user()->id }}</span></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                                <li><a class="dropdown-item" href="#profile"><i class="bi bi-person me-2"></i>Profile</a></li>
+                                <li><a class="dropdown-item" href="{{ route('frontend.profile.index') }}"><i class="bi bi-person me-2"></i>Profile</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
